@@ -1,0 +1,94 @@
+version: '3'
+services:
+
+  search1:
+    build: ./search
+    volumes:
+      - ./search:/app
+    tty: true
+    links:
+      - mongo
+    env_file:
+      - .env
+
+  search2:
+    build: ./search
+    volumes:
+      - ./search:/app
+    tty: true
+    links:
+      - mongo
+    env_file:
+      - .env
+  
+  operations1:
+    build: ./operations
+    volumes: 
+      - ./search:/app
+    tty: true
+    links:
+      - mongo
+    env_file:
+      - .env
+  
+  operations2:
+    build: ./operations
+    volumes: 
+      - ./search:/app
+    tty: true
+    links:
+      - mongo
+    env_file:
+      - .env
+   
+  
+  auth1:
+    build: ./auth
+    volumes:
+      - ./auth:/app
+    tty: true
+    links:
+      - mongo
+    env_file:
+      - .env
+    
+  auth2:
+    build: ./auth
+    volumes:
+      - ./auth:/app
+    tty: true
+    links:
+      - mongo
+    env_file:
+      - .env
+
+  loadbalancer:
+      build: ./load-balancers/auth-balancer
+      tty: true
+      links:
+          - auth1
+          - auth2
+      ports:
+          - '8080:8080'
+  
+  loadbalancer2:
+      build: ./load-balancers/search-balancer
+      tty: true
+      links:
+          - search1
+          - search2
+      ports:
+          - '8090:8090'
+  
+  loadbalancer3:
+      build: ./load-balancers/operation-balancer
+      tty: true
+      links:
+          - operations1
+          - operations2
+      ports:
+          - '9000:9000'
+  mongo:
+    container_name: mongo
+    image: mongo
+
