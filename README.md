@@ -9,8 +9,7 @@ to run the app:
 # facebook login: since it's on dev, so only provided email can be used
 `localhost:8080/facebook/login`
 
-*email: aymanabdelrhman12@gmail.com*
-*password: qurbaalex!!!*
+*you need to create your own facebook project for fb login, and provide you gmail email and password for nodemailer, put all of this in .env file*
 
 # qurba-package github repo
 `https://github.com/abdelrhmanayman/qurba-package`

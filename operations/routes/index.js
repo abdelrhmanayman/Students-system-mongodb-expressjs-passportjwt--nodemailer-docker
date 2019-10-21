@@ -24,12 +24,9 @@ router.post('/addStudent', async (req, res) => {
 })
 
 /* 
-
 body: {
 }
-
 returns: array of students usernames
-
 */
 
 router.post('/getAllStudents', async (_, res) => {

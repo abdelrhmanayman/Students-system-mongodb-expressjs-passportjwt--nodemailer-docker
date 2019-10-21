@@ -8,7 +8,7 @@ exports.authHandelerSignUp = (student, host) => {
     student.password = bcrypt.hashSync(student.password, bcrypt.genSaltSync())
     return userModelInsert({ one: true, value: student }).then(({ username, email }) => {
         rand = bcrypt.hashSync(username, bcrypt.genSaltSync())
-        link = "http://" + host + "/verify?id=" + rand + "&username=" + username
+        link = "http://" + host + ":8080" + "/verify?id=" + rand + "&username=" + username
         sendmail(email, "verification", link)
         return username
     })
